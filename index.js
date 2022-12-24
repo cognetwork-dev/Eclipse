@@ -2,10 +2,10 @@ import createBareServer from '@tomphttp/bare-server-node';
 import express from 'express';
 import http from 'node:http';
 import webpack from 'webpack';
-import { dirname } from 'path';
+import * as path from 'path';
 import { fileURLToPath } from 'url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 var bundle = webpack({
   mode: 'development',
