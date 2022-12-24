@@ -1,26 +1,56 @@
-import fs from 'fs';
-import createBareServer from './tomp/bare-server-node/dist/BareServer.esm.js';
-import http from 'http';
-import nodeStatic from 'node-static';
+import createBareServer from '@tomphttp/bare-server-node';
+import express from 'express';
+import http from 'node:http';
+import webpack from 'webpack';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const server = http.createServer();
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
-const client = new nodeStatic.Server('public/');
-
-const bareServer = createBareServer('/bare/', {
-	logErrors: false,
-	localAddress: undefined
+var bundle = webpack({
+  mode: 'development',
+  stats: {
+    warnings: false
+  },
+  entry: {
+    main: path.join(__dirname, "/eclipse/index.js"),
+    sw: path.join(__dirname, "/eclipse/sw.js"),
+  },
+  output: {
+    path: path.join(__dirname, "eclipseBuild"),
+    filename: 'ec.[name].js'
+  }
 });
 
-server.on('request', (req, res) => {
+bundle.watch(true, (error)=>{
+  if (error) {
+    console.log("Error: ", error);
+  } else {
+    console.log("Bundled");
+  }
+})
+
+const httpServer = http.createServer();
+
+const app = express();
+
+app.get("/", (req, res) => {
+	res.sendFile(__dirname + "/public/index.html");
+});
+
+app.use(express.static(__dirname + "/public"))
+
+const bareServer = createBareServer('/bare/');
+
+httpServer.on("request", (req, res) => {
 	if (bareServer.shouldRoute(req)) {
 		bareServer.routeRequest(req, res);
 	} else {
-		client.serve(req, res);
+		app(req, res);
 	}
 });
 
-server.on('upgrade', (req, socket, head) => {
+httpServer.on("upgrade", (req, socket, head) => {
 	if (bareServer.shouldRoute(req)) {
 		bareServer.routeUpgrade(req, socket, head);
 	} else {
@@ -28,13 +58,17 @@ server.on('upgrade', (req, socket, head) => {
 	}
 });
 
-server.on('listening', () => {
-	console.log('Server running');
+httpServer.on("listening", () => {
+	console.log("Eclipse in running on port 8080");
 });
 
-server.listen(3000);
+httpServer.listen({
+	port: 8080,
+});
 
 /*
+how to bundle / stole from sting
+
 var bundle = webpack({
   mode: 'development',
   stats: {
