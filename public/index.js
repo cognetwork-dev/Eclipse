@@ -1,6 +1,4 @@
-import * as Eclipse from '/eclipse/EC.MAIN.js';
-
-window.open('/eclipse/EC.MAIN.js')
+import Eclipse from '/eclipse/EC.MAIN.js';
 
 /*
 const EC = new Eclipse({
@@ -8,4 +6,4 @@ const EC = new Eclipse({
 })
 */
 
-//Eclipse()
+Eclipse()
