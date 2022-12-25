@@ -9,15 +9,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 var bundle = webpack({
   mode: 'development',
-  stats: {
-    warnings: false
-  },
   entry: {
-    MAIN: path.join(__dirname, "/eclipse/main.js"),
-    SW: path.join(__dirname, "/eclipse/sw.js"),
+    MAIN: path.join(__dirname, '/eclipse/main.js'),
+    SW: path.join(__dirname, '/eclipse/sw.js')
   },
   output: {
-    path: path.join(__dirname, "/public/eclipse"),
+    path: path.join(__dirname, '/public/eclipse'),
     filename: 'EC.[name].js'
   }
 });
@@ -65,37 +62,3 @@ httpServer.on("listening", () => {
 httpServer.listen({
 	port: 8080,
 });
-
-/*
-how to bundle / stole from sting
-
-var bundle = webpack({
-  mode: 'development',
-  stats: {
-    warnings: false
-  },
-  entry: {
-    bundle: path.join(__dirname, 'sting/bundle.ts'),
-    sw: path.join(__dirname, 'sting/worker/index.ts'),
-    client: path.join(__dirname, 'sting/client/index.ts'),
-  },
-  output: {
-    path: path.join(__dirname, 'static/st'),
-    filename: 'st.[name].js'
-  },
-  module: {
-    rules: [
-      { test: /\.tsx?$/, loader: "ts-loader" }
-    ]
-  }
-});
-
-bundle.watch(true, (error)=>{
-  if (error) {
-    console.log("Error", error);
-  } else {
-    console.log("Bundled Sting");
-  }
-})
-
-*/
