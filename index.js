@@ -11,7 +11,8 @@ var bundle = webpack({
   mode: 'development',
   entry: {
     MAIN: path.join(__dirname, '/eclipse/main.js'),
-    SW: path.join(__dirname, '/eclipse/sw.js')
+    SW: path.join(__dirname, '/eclipse/sw.js'),
+    WORKER: path.join(__dirname, '/eclipse/worker.js')
   },
   output: {
     path: path.join(__dirname, '/public/eclipse'),

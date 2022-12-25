@@ -16,7 +16,7 @@
   \***********************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\nimportScripts()\n\nconsole.log(\"sw\")\n\n//# sourceURL=webpack://eclipse/./eclipse/sw.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nimportScripts(location.origin + '/eclipse/EC.WORKER.js')\n\nconsole.log(\"sw\")\n\n//# sourceURL=webpack://eclipse/./eclipse/sw.js?");
 
 /***/ })
 
