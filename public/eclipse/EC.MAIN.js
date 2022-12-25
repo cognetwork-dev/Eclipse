@@ -10,13 +10,13 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./eclipse/index.js":
-/*!**************************!*\
-  !*** ./eclipse/index.js ***!
-  \**************************/
-/***/ (() => {
+/***/ "./eclipse/main.js":
+/*!*************************!*\
+  !*** ./eclipse/main.js ***!
+  \*************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("throw new Error(\"Module parse failed: The top-level-await experiment is not enabled (set experiments.topLevelAwait: true to enabled it)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\nError: The top-level-await experiment is not enabled (set experiments.topLevelAwait: true to enabled it)\\n    at /workspace/Eclipse/node_modules/webpack/lib/dependencies/HarmonyDetectionParserPlugin.js:54:11\\n    at Hook.eval [as call] (eval at create (/workspace/Eclipse/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:7:16)\\n    at Hook.CALL_DELEGATE [as _call] (/workspace/Eclipse/node_modules/tapable/lib/Hook.js:14:14)\\n    at JavascriptParser.walkAwaitExpression (/workspace/Eclipse/node_modules/webpack/lib/javascript/JavascriptParser.js:2342:29)\\n    at JavascriptParser.walkExpression (/workspace/Eclipse/node_modules/webpack/lib/javascript/JavascriptParser.js:2272:10)\\n    at JavascriptParser.walkVariableDeclaration (/workspace/Eclipse/node_modules/webpack/lib/javascript/JavascriptParser.js:2126:33)\\n    at JavascriptParser.walkStatement (/workspace/Eclipse/node_modules/webpack/lib/javascript/JavascriptParser.js:1620:10)\\n    at JavascriptParser.walkStatements (/workspace/Eclipse/node_modules/webpack/lib/javascript/JavascriptParser.js:1481:9)\\n    at JavascriptParser.parse (/workspace/Eclipse/node_modules/webpack/lib/javascript/JavascriptParser.js:3375:9)\\n    at /workspace/Eclipse/node_modules/webpack/lib/NormalModule.js:1087:26\");\n\n//# sourceURL=webpack://eclipse/./eclipse/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Eclipse\": () => (/* binding */ Eclipse)\n/* harmony export */ });\n/* harmony import */ var _tomphttp_bare_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tomphttp/bare-client */ \"./node_modules/@tomphttp/bare-client/dist/BareClient.esm.js\");\n\n\nasync function Eclipse() {\nconst client = await (0,_tomphttp_bare_client__WEBPACK_IMPORTED_MODULE_0__.createBareClient)(location.origin + \"/bare/\");\n\nconst response = await client.fetch(\"https://example.com\");\n\nconsole.log(await response.text());\n}\n\n\n\n//# sourceURL=webpack://eclipse/./eclipse/main.js?");
 
 /***/ }),
 
@@ -32,8 +32,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /******/ 	});
 /************************************************************************/
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
@@ -68,9 +89,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./eclipse/index.js"](0, __webpack_exports__, __webpack_require__);
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./eclipse/main.js");
 /******/ 	
 /******/ })()
 ;

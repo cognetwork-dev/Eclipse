@@ -13,12 +13,12 @@ var bundle = webpack({
     warnings: false
   },
   entry: {
-    main: path.join(__dirname, "/eclipse/index.js"),
-    sw: path.join(__dirname, "/eclipse/sw.js"),
+    MAIN: path.join(__dirname, "/eclipse/main.js"),
+    SW: path.join(__dirname, "/eclipse/sw.js"),
   },
   output: {
-    path: path.join(__dirname, "eclipseBuild"),
-    filename: 'ec.[name].js'
+    path: path.join(__dirname, "/public/eclipse"),
+    filename: 'EC.[name].js'
   }
 });
 
@@ -26,7 +26,7 @@ bundle.watch(true, (error)=>{
   if (error) {
     console.log("Error: ", error);
   } else {
-    console.log("Bundled");
+    console.log("Bundled Eclipse");
   }
 })
 
