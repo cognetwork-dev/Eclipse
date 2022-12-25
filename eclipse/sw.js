@@ -1,1 +1,3 @@
+importScripts()
+
 console.log("sw")
