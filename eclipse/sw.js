@@ -1,3 +1,5 @@
-importScripts(location.origin + '/eclipse/EC.WORKER.js')
+import EclipseWorker from './worker.js'
 
-console.log("sw")
+self.addEventListener("fetch", function(e) {
+    e.respondWith(EclipseWorker(e))
+})

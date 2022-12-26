@@ -1,23 +1,12 @@
-import BareClient from '@tomphttp/bare-client';
-
-async function test() {
-const client = new BareClient("https://uv.holyubofficial.net");
-
-const response = await client.fetch("https://example.com");
-
-console.log(await response.text());
-}
-
 class Eclipse {
   constructor(config = {}) {
     this.bare = config.bare || "/bare/"
-    this.prefix = "/eclipse/"
-    //navigator.serviceWorker.register(location.origin + '/eclipse/EC.SW.js' + '?config=' + encodeURIComponent(JSON.stringify({bare: this.bare})), {scope: "/eclipse/", type: "module", updateViaCache: "none"})
-    navigator.serviceWorker.register(location.origin + '/eclipse/EC.SW.js' + '?config=' + encodeURIComponent(JSON.stringify({bare: this.bare})))
+    this.prefix = config.prefix || "/service/"
+    navigator.serviceWorker.register(location.origin + '/eclipse/EC.SW.js' + '?config=' + encodeURIComponent(JSON.stringify({bare: this.bare, prefix: "/eclipse" + this.prefix})),{scope: "/eclipse" + this.prefix})
   }
   url = function(url) {
     if (url) {
-      return window.location.origin + this.prefix + url;
+      return window.location.origin + "/eclipse" + this.prefix + url;
       } else {
       return "";
     }
