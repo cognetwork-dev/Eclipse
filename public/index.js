@@ -1,5 +1,5 @@
 const EC = new Eclipse({
-  prefix: "/testinglol/",
+  prefix: "/service/",
   bare: "https://uv.holyubofficial.net"
 })
 

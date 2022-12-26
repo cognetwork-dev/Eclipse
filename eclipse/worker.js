@@ -11,9 +11,9 @@ async function EclipseWorker(e) {
   const client = new BareClient(config.bare);
 
   var options = {
-  method: e.request.method,
-  headers: e.request.headers,
-  body: undefined
+    method: e.request.method,
+    headers: e.request.headers,
+    body: undefined
   }
 
   const response = await client.fetch(e.request.url.split(prefix)[1], options);
@@ -24,7 +24,7 @@ async function EclipseWorker(e) {
 	headers: response.rawHeaders
   });
   } else {
-  return fetch(e.request);
+    return fetch(e.request);
   }
   } catch(error) {
   console.log(error)
