@@ -38,19 +38,33 @@ var HTML_REWRITER = [
 function html(code, requestURL, prefix) {
     var dom = parse(code)
     for (let node in dom.childNodes) {
-        dom.childNodes[node] = rewriteNode(dom.childNodes[node]);
+        dom.childNodes[node] = addNode(dom.childNodes[node]);
     }
     return serialize(dom)
 }
 
-function rewriteNode(node) {
-    console.log(node)
+var elements = []
+
+function addNode(node) {
+    elements.push(node)
     if (node.childNodes) {
         for (let childNode in node.childNodes) {
-            node.childNodes[childNode] = rewriteNode(node.childNodes[childNode]);
+            node.childNodes[childNode] = addNode(node.childNodes[childNode]);
         }
     }
     return node;
 }
 
+for (var config in HTML_REWRITER) {
+    if (HTML_REWRITER[config].action == "rewrite") {
+      HTML_REWRITER[config].attrs.forEach((attr) => {
+        var allelems = elements.filter(elem => elem.hasAttribute(attr))
+        for (var aelem in allelems) {
+          if (allelems[aelem].hasAttribute(attr)) {
+            allelems[aelem].setAttribute(attr, "test")
+          }
+        }
+      })
+    }
+}
 export { html as default };
