@@ -1,7 +1,5 @@
 function request(headers, requestURL, prefix) {
     var link = requestURL.split(prefix)[1]
-    console.log(prefix)
-    console.log(requestURL)
     
     delete headers["Host"]
     delete headers["Accept-Encoding"]
