@@ -5,7 +5,7 @@ async function EclipseWorker(e) {
   try {
   var searchParams = new URLSearchParams(self.location.search);
   var config = JSON.parse(decodeURIComponent(searchParams.get("config")))
-  var prefix = "/eclipse/"
+  var prefix = config.prefix
 
   if (e.request.url.startsWith(self.location.origin + prefix)) {
   const client = new BareClient(self.location.origin + config.bare);
