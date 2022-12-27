@@ -8,7 +8,7 @@ async function EclipseWorker(e) {
   var prefix = config.prefix
 
   if (e.request.url.startsWith(self.location.origin + prefix)) {
-  const client = new BareClient(self.location.origin + config.bare);
+  const client = new BareClient(config.bare);
 
   var newHeaders = Object.assign({}, e.request.headers)
   var rewrittenHeaders = headersRequest(newHeaders, e.request.url, prefix)
