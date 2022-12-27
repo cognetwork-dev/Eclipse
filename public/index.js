@@ -3,8 +3,6 @@ const EC = new Eclipse({
   bare: "https://uv.holyubofficial.net"
 })
 
-console.log(EC)
-
 var search = document.getElementById("search")
 
 search.addEventListener("keyup", function(e) {

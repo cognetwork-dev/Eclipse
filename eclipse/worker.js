@@ -1,7 +1,6 @@
 import BareClient from '@tomphttp/bare-client';
 
 async function EclipseWorker(e) {
-  console.log(e.request.url)
   try {
   var searchParams = new URLSearchParams(self.location.search);
   var config = JSON.parse(decodeURIComponent(searchParams.get("config")))
