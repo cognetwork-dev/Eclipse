@@ -1,5 +1,5 @@
 function request(headers, requestURL, prefix) {
-    var link = e.request.url.split("/eclipse/")[1]
+    var link = requestURL.split(prefix)[1]
     
     delete headers["Host"]
     delete headers["Accept-Encoding"]
@@ -12,7 +12,7 @@ function request(headers, requestURL, prefix) {
     return headers;
 }
     
-function response(headers, requestURL, prefix) {
+function response(headers) {
     delete headers['Content-Length']
     delete headers['Content-Security-Policy']
     delete headers['Content-Security-Policy-Report-Only']

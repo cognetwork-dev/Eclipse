@@ -10,13 +10,73 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./eclipse/rewrite/css.js":
+/*!********************************!*\
+  !*** ./eclipse/rewrite/css.js ***!
+  \********************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ css)\n/* harmony export */ });\nfunction css(code, requestURL, prefix, context) {\n    return code;\n}\n\n\n\n//# sourceURL=webpack://eclipse/./eclipse/rewrite/css.js?");
+
+/***/ }),
+
+/***/ "./eclipse/rewrite/headers.js":
+/*!************************************!*\
+  !*** ./eclipse/rewrite/headers.js ***!
+  \************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"request\": () => (/* binding */ request),\n/* harmony export */   \"response\": () => (/* binding */ response)\n/* harmony export */ });\nfunction request(headers, requestURL, prefix) {\n    var link = requestURL.split(prefix)[1]\n    \n    delete headers[\"Host\"]\n    delete headers[\"Accept-Encoding\"]\n    delete headers[\"Cache-Control\"]\n    delete headers[\"Upgrade-Insecure-Requests\"]\n    \n    headers[\"Host\"] = new URL(link).hostname\n    headers[\"Origin\"] = new URL(link).origin\n    headers[\"Referrer\"] = new URL(link).href\n    return headers;\n}\n    \nfunction response(headers) {\n    delete headers['Content-Length']\n    delete headers['Content-Security-Policy']\n    delete headers['Content-Security-Policy-Report-Only']\n    delete headers['Strict-Transport-Security']\n    delete headers['X-Frame-Options']\n    delete headers['X-Content-Type-Options']\n    return headers;\n}\n    \n\n\n//# sourceURL=webpack://eclipse/./eclipse/rewrite/headers.js?");
+
+/***/ }),
+
+/***/ "./eclipse/rewrite/html.js":
+/*!*********************************!*\
+  !*** ./eclipse/rewrite/html.js ***!
+  \*********************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ html)\n/* harmony export */ });\nfunction html(code, requestURL, prefix) {\n    return code;\n}\n\n\n\n//# sourceURL=webpack://eclipse/./eclipse/rewrite/html.js?");
+
+/***/ }),
+
+/***/ "./eclipse/rewrite/index.js":
+/*!**********************************!*\
+  !*** ./eclipse/rewrite/index.js ***!
+  \**********************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"css\": () => (/* reexport safe */ _css_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"]),\n/* harmony export */   \"headersRequest\": () => (/* binding */ headersRequest),\n/* harmony export */   \"headersResponse\": () => (/* binding */ headersResponse),\n/* harmony export */   \"html\": () => (/* reexport safe */ _html_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]),\n/* harmony export */   \"javascript\": () => (/* reexport safe */ _javascript_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"]),\n/* harmony export */   \"url\": () => (/* reexport safe */ _url_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\n/* harmony export */ });\n/* harmony import */ var _url_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./url.js */ \"./eclipse/rewrite/url.js\");\n/* harmony import */ var _html_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./html.js */ \"./eclipse/rewrite/html.js\");\n/* harmony import */ var _javascript_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./javascript.js */ \"./eclipse/rewrite/javascript.js\");\n/* harmony import */ var _css_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./css.js */ \"./eclipse/rewrite/css.js\");\n/* harmony import */ var _headers_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./headers.js */ \"./eclipse/rewrite/headers.js\");\n\n\n\n\n\n\nvar headersRequest = _headers_js__WEBPACK_IMPORTED_MODULE_4__.request\nvar headersResponse = _headers_js__WEBPACK_IMPORTED_MODULE_4__.response\n\n\n\n//# sourceURL=webpack://eclipse/./eclipse/rewrite/index.js?");
+
+/***/ }),
+
+/***/ "./eclipse/rewrite/javascript.js":
+/*!***************************************!*\
+  !*** ./eclipse/rewrite/javascript.js ***!
+  \***************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ javascript)\n/* harmony export */ });\nfunction javascript(code, requestURL, prefix) {\n    code = code.replace(/document.location/g, \"document.eLocation\")\n    code = code.replace(/window.location/g, \"window.eLocation\")\n    code = code.replace(/window.oLocation = /g, \"window.ELocation = \")\n    code = code.replace(/document.oLocation = /g, \"document.ELocation = \")\n    return code;\n}\n\n\n\n//# sourceURL=webpack://eclipse/./eclipse/rewrite/javascript.js?");
+
+/***/ }),
+
+/***/ "./eclipse/rewrite/url.js":
+/*!********************************!*\
+  !*** ./eclipse/rewrite/url.js ***!
+  \********************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ url)\n/* harmony export */ });\nfunction url(requestURL, url, prefix, baseURL) {\n    var fullUrl = requestURL.split(prefix)[1];\n    var mainUrl = new URL(requestURL).origin + prefix;\n    \n    if (url.startsWith(\"javascript:\") || url.startsWith(\"about:\") || url.startsWith(\"mailto:\")|| url.startsWith(\"data:\") || url.startsWith(\"blob:\") || url.startsWith(\"#\")) return url;\n    if (url.startsWith(mainUrl)) return url;\n    \n    try {\n    var webbaseurl = new URL(new URL(baseURL).href, new URL(fullUrl).href)\n    } catch {\n    var webbaseurl = new URL(fullUrl).href\n    }\n    \n    var newurl = new URL(url, webbaseurl).toString()\n    \n    return decodeURI(mainUrl + newurl)\n}\n    \n\n\n//# sourceURL=webpack://eclipse/./eclipse/rewrite/url.js?");
+
+/***/ }),
+
 /***/ "./eclipse/worker.js":
 /*!***************************!*\
   !*** ./eclipse/worker.js ***!
   \***************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ EclipseWorker)\n/* harmony export */ });\n/* harmony import */ var _tomphttp_bare_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tomphttp/bare-client */ \"./node_modules/@tomphttp/bare-client/dist/BareClient.esm.js\");\n\n\nasync function EclipseWorker(e) {\n  try {\n  var searchParams = new URLSearchParams(self.location.search);\n  var config = JSON.parse(decodeURIComponent(searchParams.get(\"config\")))\n  var prefix = config.prefix\n\n  if (e.request.url.startsWith(self.location.origin + prefix)) {\n  const client = new _tomphttp_bare_client__WEBPACK_IMPORTED_MODULE_0__[\"default\"](config.bare);\n\n  var options = {\n    method: e.request.method,\n    headers: e.request.headers,\n    body: undefined\n  }\n\n  const response = await client.fetch(e.request.url.split(prefix)[1], options);\n\n  var code = await response.text()\n  return new Response(code, {\n\tstatus: response.status,\n\theaders: response.rawHeaders\n  });\n  } else {\n    return fetch(e.request);\n  }\n  } catch(error) {\n  console.log(error)\n  return new Response(error, {\n\t\tstatus: 500,\n\t})\n  }\n}\n\n\n\n//# sourceURL=webpack://eclipse/./eclipse/worker.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ EclipseWorker)\n/* harmony export */ });\n/* harmony import */ var _tomphttp_bare_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tomphttp/bare-client */ \"./node_modules/@tomphttp/bare-client/dist/BareClient.esm.js\");\n/* harmony import */ var _rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rewrite/index.js */ \"./eclipse/rewrite/index.js\");\n\n\n\nasync function EclipseWorker(e) {\n  try {\n  var searchParams = new URLSearchParams(self.location.search);\n  var config = JSON.parse(decodeURIComponent(searchParams.get(\"config\")))\n  var prefix = \"/eclipse/\"\n\n  if (e.request.url.startsWith(self.location.origin + prefix)) {\n  const client = new _tomphttp_bare_client__WEBPACK_IMPORTED_MODULE_0__[\"default\"](self.location.origin + config.bare);\n\n  var newHeaders = Object.assign({}, e.request.headers)\n  var rewrittenHeaders = (0,_rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__.headersRequest)(newHeaders, e.request.url, prefix)\n  var options = {\n  method: e.request.method,\n  headers: rewrittenHeaders,\n  body: undefined\n  }\n\n  const response = await client.fetch(e.request.url.split(prefix)[1], options);\n\n  if (response.headers.get(\"Location\")) {\n  return new Response(\"\", {\n\t\tstatus: 301,\n\t\theaders: {\"Location\": (0,_rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__.url)(e, response.headers.get(\"Location\"))}\n\t});\n  }\n\n  var code;\n\n  switch (e.request.method !== \"POST\" ? response.headers.get(\"Content-Type\").split(\";\")[0] : \"\") {\n    case \"text/html\":\n      code = (0,_rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__.html)(await response.text(), e.request.url, prefix);\n      break;\n    case \"text/css\":\n      code = (0,_rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__.css)(await response.text(), e.request.url, prefix);\n      break;\n    case \"text/javascript\":\n      code = (0,_rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__.javascript)(await response.text(), e.request.url, prefix);\n      break;\n    case \"text/javascript\":\n      code = (0,_rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__.javascript)(await response.text(), e.request.url, prefix);\n      break;   \n    case \"text/js\":\n      code = (0,_rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__.javascript)(await response.text(), e.request.url, prefix);\n      break;\n    case \"application/javascript\":\n      code = (0,_rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__.javascript)(await response.text(), e.request.url, prefix);\n      break;\n    default:\n      code = await response.arrayBuffer();\n      break;\n  }\n  return new Response(code, {\n\t\tstatus: response.status,\n\t\theaders: (0,_rewrite_index_js__WEBPACK_IMPORTED_MODULE_1__.headersResponse)(response.rawHeaders)\n\t});\n  } else {\n  return fetch(e.request);\n  }\n  } catch(error) {\n  console.log(error)\n  return new Response(error, {\n\t\tstatus: 500,\n\t})\n  }\n}\n\n\n\n//# sourceURL=webpack://eclipse/./eclipse/worker.js?");
 
 /***/ }),
 

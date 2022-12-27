@@ -1,4 +1,4 @@
-function css(code, context, requestURL, prefix) {
+function css(code, requestURL, prefix, context) {
     return code;
 }
 
