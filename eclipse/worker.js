@@ -29,7 +29,6 @@ async function EclipseWorker(e) {
 
   var code;
 
-  console.log(response)
   switch (e.request.method !== "POST" ? response.headers.get("content-type").split(";")[0] : "") {
     case "text/html":
       code = html(await response.text(), e.request.url, prefix);
