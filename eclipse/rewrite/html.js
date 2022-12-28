@@ -57,6 +57,8 @@ function addNode(node) {
 }
 
 function rewriteNodes() {
+console.log(elements)
+console.log(elements.filter(item => item.attrs !== null))
   /*
 for (var config in HTML_REWRITER) {
     if (HTML_REWRITER[config].action == "rewrite") {
