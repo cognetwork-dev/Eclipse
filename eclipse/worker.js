@@ -29,7 +29,8 @@ async function EclipseWorker(e) {
 
   var code;
 
-  switch (e.request.method !== "POST" ? response.headers.get("Content-Type").split(";")[0] : "") {
+  console.log(response)
+  switch (e.request.method !== "POST" ? response.headers.get("content-type").split(";")[0] : "") {
     case "text/html":
       code = html(await response.text(), e.request.url, prefix);
       break;
@@ -52,6 +53,7 @@ async function EclipseWorker(e) {
       code = await response.arrayBuffer();
       break;
   }
+  
   return new Response(code, {
 		status: response.status,
 		headers: headersResponse(response.rawHeaders)
