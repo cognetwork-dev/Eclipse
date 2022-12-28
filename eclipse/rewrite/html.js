@@ -40,6 +40,7 @@ function html(code, requestURL, prefix) {
     for (let node in dom.childNodes) {
         dom.childNodes[node] = addNode(dom.childNodes[node]);
     }
+    rewriteNodes()
     return serialize(dom)
 }
 
@@ -55,6 +56,8 @@ function addNode(node) {
     return node;
 }
 
+function rewriteNodes() {
+  /*
 for (var config in HTML_REWRITER) {
     if (HTML_REWRITER[config].action == "rewrite") {
       HTML_REWRITER[config].attrs.forEach((attr) => {
@@ -67,4 +70,7 @@ for (var config in HTML_REWRITER) {
       })
     }
 }
+*/
+}
+
 export { html as default };
