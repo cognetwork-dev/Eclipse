@@ -20,10 +20,10 @@ async function EclipseWorker(e) {
 
   const response = await client.fetch(e.request.url.split(prefix)[1], options);
 
-  if (response.headers.get("Location")) {
+  if (response.finalURL !== e.request.url.split(prefix)[1]) {
   return new Response("", {
 		status: 301,
-		headers: {"Location": url(e, response.headers.get("Location"))}
+		headers: {"Location": url(e.request.url, response.finalURL, prefix)}
 	});
   }
 
