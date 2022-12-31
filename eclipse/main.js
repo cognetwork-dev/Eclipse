@@ -4,7 +4,28 @@ class Eclipse {
   constructor(config = {}) {
     this.prefix = config.prefix || "/service/"
     this.codec = config.codec || "plain"
-    this.bare = config.bare || "/bare/"
+    this.bare = config.bare || location.origin + "/bare/"
+    
+    if (!this.prefix.startsWith("/") || !this.prefix.endsWith("/")) {
+      console.error("Prefix needs to start and end with /")
+      console.error("Fixing prefix")
+
+      if (!this.prefix.startsWith("/")) {
+        this.prefix = "/" + this.prefix
+      }
+
+      if (!this.prefix.endsWith("/")) {
+        this.prefix = this.prefix + "/"
+      }
+    }
+
+    if (!codecs[this.codec]) {
+      console.error("Invalid codec")
+      console.error("Codec has been set to plain")
+
+      this.codec = "plain"
+    }
+
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
       for (let registration of registrations) {
         //Dev mode unregisters the service worker every time the page loads

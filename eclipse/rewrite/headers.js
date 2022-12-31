@@ -1,4 +1,4 @@
-function request(headers, link) {    
+function request(headers, link) {
     delete headers['Host']
     delete headers['Accept-Encoding']
     delete headers['Cache-Control']
@@ -7,6 +7,8 @@ function request(headers, link) {
     headers['Host'] = new URL(link).hostname
     headers['Origin'] = new URL(link).origin
     headers['Referrer'] = new URL(link).href
+
+    headers['user-agent'] = navigator.userAgent
     return headers;
 }
     

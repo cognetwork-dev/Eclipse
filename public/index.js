@@ -4,6 +4,8 @@ const EC = new Eclipse({
   bare: "https://uv.sys32.dev/"
 })
 
+console.log(EC)
+
 var search = document.getElementById("search")
 
 search.addEventListener("keyup", function(e) {
