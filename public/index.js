@@ -1,6 +1,7 @@
 const EC = new Eclipse({
   prefix: "/service/",
-  bare: "https://uv.holyubofficial.net"
+  codec: "plain",
+  bare: "https://uv.sys32.dev/"
 })
 
 var search = document.getElementById("search")

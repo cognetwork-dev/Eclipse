@@ -1,5 +1,9 @@
-function url(requestURL, url, prefix, baseURL) {
+import { codecs } from "./index.js"
+
+
+function url(requestURL, url, prefix, codec, baseURL) {
     var fullUrl = requestURL.split(prefix)[1];
+    fullUrl = codecs[codec].decode(fullUrl)
     var mainUrl = new URL(requestURL).origin + prefix;
     
     if (url.startsWith("javascript:") || url.startsWith("about:") || url.startsWith("mailto:")|| url.startsWith("data:") || url.startsWith("blob:") || url.startsWith("#")) return url;
@@ -13,7 +17,7 @@ function url(requestURL, url, prefix, baseURL) {
     
     var newurl = new URL(url, webbaseurl).toString()
     
-    return decodeURI(mainUrl + newurl)
+    return mainUrl + codecs[codec].encode(newurl)
 }
     
 export { url as default };

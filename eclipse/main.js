@@ -1,7 +1,10 @@
+import { codecs } from "./rewrite/index.js";
+
 class Eclipse {
   constructor(config = {}) {
-    this.bare = config.bare || "/bare/"
     this.prefix = config.prefix || "/service/"
+    this.codec = config.codec || "plain"
+    this.bare = config.bare || "/bare/"
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
       for (let registration of registrations) {
         //Dev mode unregisters the service worker every time the page loads
@@ -17,11 +20,11 @@ class Eclipse {
           }
       }
     })
-    navigator.serviceWorker.register(location.origin + '/eclipse/EC.SW.js' + '?config=' + encodeURIComponent(JSON.stringify({bare: this.bare, prefix: "/eclipse" + this.prefix})),{scope: "/eclipse" + this.prefix})
+    navigator.serviceWorker.register(location.origin + '/eclipse/EC.SW.js' + '?config=' + encodeURIComponent(JSON.stringify({prefix: "/eclipse" + this.prefix, codec: this.codec, bare: this.bare})),{scope: "/eclipse" + this.prefix})
   }
   url = function(url) {
     if (url) {
-      return window.location.origin + "/eclipse" + this.prefix + url;
+      return window.location.origin + "/eclipse" + this.prefix + codecs[this.codec].encode(url);
       } else {
       return "";
     }
