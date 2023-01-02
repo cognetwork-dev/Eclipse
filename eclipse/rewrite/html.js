@@ -41,7 +41,7 @@ function html(code, requestURL, prefix, codec, randomString) {
     for (let node in dom.childNodes) {
         dom.childNodes[node] = addNode(dom.childNodes[node]);
     }
-    rewriteNodes(HTML_REWRITER, requestURL, prefix, codec)
+    rewriteNodes(HTML_REWRITER, requestURL, prefix, codec, randomString)
     return serialize(dom)
 }
 
@@ -57,7 +57,7 @@ function addNode(node) {
     return node;
 }
 
-function rewriteNodes(HTML_REWRITER, requestURL, prefix, codec) {
+function rewriteNodes(HTML_REWRITER, requestURL, prefix, codec, randomString) {
 for (var config in HTML_REWRITER) {
     if (HTML_REWRITER[config].action == "rewrite") {
       HTML_REWRITER[config].attrs.forEach((attr) => {
