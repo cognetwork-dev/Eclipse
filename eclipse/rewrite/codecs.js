@@ -1,3 +1,5 @@
+import * as CryptoJS from 'crypto-js';
+
 var codecs = {}
 
 codecs.plain = {
@@ -150,6 +152,17 @@ codecs.xor = {
     decode(string){
         if (!string) return string;
         return decodeURIComponent(string).split('').map((char, ind) => ind % 2 ? String.fromCharCode(char.charCodeAt() ^ 2) : char).join('');
+    }
+}
+
+codecs.random = {
+    encode(string, randomString) {
+        if (!string) return string;
+        return encodeURIComponent(CryptoJS.AES.encrypt(string, "test").toString());
+    },
+    decode(string, randomString) {
+        if (!string) return string;
+        return CryptoJS.AES.decrypt(decodeURIComponent(string), "test").toString(CryptoJS.enc.Utf8);
     }
 }
 

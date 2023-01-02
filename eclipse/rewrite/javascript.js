@@ -1,4 +1,4 @@
-function javascript(code, requestURL, prefix, codec) {
+function javascript(code) {
     code = code.replace(/document.location/g, "document.eLocation")
     code = code.replace(/window.location/g, "window.eLocation")
     code = code.replace(/window.oLocation = /g, "window.ELocation = ")

@@ -1,7 +1,7 @@
 import * as csstree from 'css-tree';
 import url from "./url.js";
 
-function css(code, requestURL, prefix, codec, context) {
+function css(code, requestURL, prefix, codec, randomString, context) {
 const css = csstree.parse(code, {
   context: context || "stylesheet"
 });
@@ -11,7 +11,7 @@ node.type == "Url")
 
 for (var aurl in urls) {
 var link = urls[aurl]
-link.value = url(requestURL, link.value, prefix, codec)
+link.value = url(requestURL, link.value, prefix, codec, randomString)
 }
 
 return csstree.generate(css)

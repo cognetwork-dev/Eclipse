@@ -1,11 +1,18 @@
 import { codecs } from "./rewrite/index.js";
+import { v4 as uuidv4 } from 'uuid';
 
 class Eclipse {
   constructor(config = {}) {
     this.prefix = config.prefix || "/service/"
     this.codec = config.codec || "plain"
     this.bare = config.bare || location.origin + "/bare/"
-    
+
+    var randomString = localStorage.getItem("randomString") ? localStorage.getItem("randomString") : localStorage.setItem("randomString", uuidv4());
+    if (!randomString) {
+      randomString = localStorage.getItem("randomString")
+    }
+    console.log(randomString)
+
     if (!this.prefix.startsWith("/") || !this.prefix.endsWith("/")) {
       console.error("Prefix needs to start and end with /")
       console.error("Fixing prefix")
@@ -41,7 +48,7 @@ class Eclipse {
           }
       }
     })
-    navigator.serviceWorker.register(location.origin + '/eclipse/EC.SW.js' + '?config=' + encodeURIComponent(JSON.stringify({prefix: "/eclipse" + this.prefix, codec: this.codec, bare: this.bare})),{scope: "/eclipse" + this.prefix})
+    navigator.serviceWorker.register(location.origin + '/eclipse/EC.SW.js' + '?config=' + encodeURIComponent(JSON.stringify({prefix: "/eclipse" + this.prefix, codec: this.codec, bare: this.bare, randomString: this.codec == "random" ? randomString : "none"})), {scope: "/eclipse" + this.prefix})
   }
   url = function(url) {
     if (url) {

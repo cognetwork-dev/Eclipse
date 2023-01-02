@@ -7,6 +7,7 @@ async function EclipseWorker(e) {
   var config = JSON.parse(decodeURIComponent(searchParams.get("config")))
   var prefix = config.prefix
   var codec = config.codec
+  var randomString = config.randomString
 
   if (e.request.url.startsWith(self.location.origin + prefix)) {
   const client = new BareClient(config.bare);
@@ -26,7 +27,7 @@ async function EclipseWorker(e) {
   if (response.finalURL !== link) {
   return new Response("", {
 		status: 301,
-		headers: {"Location": url(e.request.url, response.finalURL, prefix, codec)}
+		headers: {"Location": url(e.request.url, response.finalURL, prefix, codec, randomString)}
 	});
   }
 
@@ -34,22 +35,22 @@ async function EclipseWorker(e) {
 
   switch (e.request.method !== "POST" ? response.headers.get("content-type").split(";")[0] : "") {
     case "text/html":
-      code = html(await response.text(), e.request.url, prefix, codec);
+      code = html(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     case "text/css":
-      code = css(await response.text(), e.request.url, prefix, codec);
+      code = css(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     case "text/javascript":
-      code = javascript(await response.text(), e.request.url, prefix, codec);
+      code = javascript(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     case "text/javascript":
-      code = javascript(await response.text(), e.request.url, prefix, codec);
+      code = javascript(await response.text(), e.request.url, prefix, codec, randomString);
       break;   
     case "text/js":
-      code = javascript(await response.text(), e.request.url, prefix, codec);
+      code = javascript(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     case "application/javascript":
-      code = javascript(await response.text(), e.request.url, prefix, codec);
+      code = javascript(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     default:
       code = await response.arrayBuffer();

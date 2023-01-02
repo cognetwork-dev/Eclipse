@@ -1,9 +1,9 @@
 import { codecs } from "./index.js"
 
 
-function url(requestURL, url, prefix, codec, baseURL) {
+function url(requestURL, url, prefix, codec, randomString, baseURL) {
     var fullUrl = requestURL.split(prefix)[1];
-    fullUrl = codecs[codec].decode(fullUrl)
+    fullUrl = codecs[codec].decode(fullUrl, randomString)
     var mainUrl = new URL(requestURL).origin + prefix;
     
     if (url.startsWith("javascript:") || url.startsWith("about:") || url.startsWith("mailto:")|| url.startsWith("data:") || url.startsWith("blob:") || url.startsWith("#")) return url;

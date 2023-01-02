@@ -1,7 +1,7 @@
 import { parse, serialize } from "parse5";
 import { url, javascript, css } from "./index.js"
 
-function html(code, requestURL, prefix, codec) {
+function html(code, requestURL, prefix, codec, randomString) {
   var HTML_REWRITER = [
     {
       attrs: ["href", "src", "action", "ping", "profile", "movie", "poster", "background", "data"],
@@ -69,7 +69,7 @@ for (var config in HTML_REWRITER) {
                 name: "eclipse-" + attr,
                 value: hasAttributes[item].attrs[attribute].value
               });
-              hasAttributes[item].attrs[attribute].value = url(requestURL, hasAttributes[item].attrs[attribute].value, prefix, codec)
+              hasAttributes[item].attrs[attribute].value = url(requestURL, hasAttributes[item].attrs[attribute].value, prefix, codec, randomString)
             }
           }
         }
@@ -84,7 +84,7 @@ for (var config in HTML_REWRITER) {
                 name: "eclipse-" + attr,
                 value: hasAttributes[item].attrs[attribute].value
               });
-              hasAttributes[item].attrs[attribute].value = css(hasAttributes[item].attrs[attribute].value, requestURL, prefix, codec, "declarationList")
+              hasAttributes[item].attrs[attribute].value = css(hasAttributes[item].attrs[attribute].value, requestURL, prefix, codec, randomString, "declarationList")
             }
           }
         }
@@ -121,7 +121,7 @@ for (var config in HTML_REWRITER) {
     for (let item in hasTagNames) {
         if (hasTagNames[item].tagName.toLowerCase() == attr) {
           for (let childNode in hasTagNames[item].childNodes) {
-            hasTagNames[item].childNodes[childNode].value = css(hasTagNames[item].childNodes[childNode].value, requestURL, prefix, codec)
+            hasTagNames[item].childNodes[childNode].value = css(hasTagNames[item].childNodes[childNode].value, requestURL, prefix, codec, randomString)
           }
         }
     }
