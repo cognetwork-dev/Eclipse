@@ -32,7 +32,7 @@ function html(code, requestURL, prefix, codec, randomString) {
       action: "delete"
     },
     {
-      config: {"prefix": prefix},
+      config: {"prefix": prefix, "requestURL": requestURL, "codec": codec, "randomString": randomString},
       action: "inject"
     }
   ]

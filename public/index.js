@@ -1,7 +1,7 @@
 const EC = new Eclipse({
   prefix: "/service/",
-  codec: "random",
-  bare: "https://uv.sys32.dev/"
+  codec: "plain",
+  bare: "https://youaresupercool.lol/bare/"
 })
 
 console.log(EC)
