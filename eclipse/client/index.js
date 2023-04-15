@@ -1,5 +1,5 @@
 import "./ec.js"
-import fetch from "./api/fetch.js"
+import api from "./api/index.js"
 
 window.$ec.api.fetch = window.fetch.bind(window)
-window.fetch = fetch
+window.fetch = api.fetch

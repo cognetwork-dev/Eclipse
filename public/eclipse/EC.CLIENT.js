@@ -440,6 +440,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./eclipse/client/api/index.js":
+/*!*************************************!*\
+  !*** ./eclipse/client/api/index.js ***!
+  \*************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ api)\n/* harmony export */ });\n/* harmony import */ var _fetch_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fetch.js */ \"./eclipse/client/api/fetch.js\");\n\n\nvar api = {\n    \"fetch\": _fetch_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n}\n\n\n\n//# sourceURL=webpack://eclipse/./eclipse/client/api/index.js?");
+
+/***/ }),
+
 /***/ "./eclipse/client/ec.js":
 /*!******************************!*\
   !*** ./eclipse/client/ec.js ***!
@@ -458,7 +469,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nwindow.$ec = {}\nwindow.$ec.c
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ec_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ec.js */ \"./eclipse/client/ec.js\");\n/* harmony import */ var _api_fetch_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/fetch.js */ \"./eclipse/client/api/fetch.js\");\n\n\n\nwindow.$ec.api.fetch = window.fetch.bind(window)\nwindow.fetch = _api_fetch_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]\n\n//# sourceURL=webpack://eclipse/./eclipse/client/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ec_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ec.js */ \"./eclipse/client/ec.js\");\n/* harmony import */ var _api_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./api/index.js */ \"./eclipse/client/api/index.js\");\n\n\n\nwindow.$ec.api.fetch = window.fetch.bind(window)\nwindow.fetch = _api_index_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].fetch\n\n//# sourceURL=webpack://eclipse/./eclipse/client/index.js?");
 
 /***/ }),
 
