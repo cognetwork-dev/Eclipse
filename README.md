@@ -8,7 +8,7 @@
 
 <h3>An interception web proxy</h3>
 
-<p>Eclipse is a new interception web proxy that follow Tomp standards</p>
+<p>Eclipse is a new interception web proxy that follows TOMP standards</p>
 
 </div>
 
@@ -103,3 +103,14 @@ const EC = new Eclipse({
 
 window.location.href = EC.search(query, "https://www.google.com/search?q=%s")
 ```
+
+## To Do
+- [x] srcset
+- [ ] js rewrites
+- [ ] client rewrites
+- [ ] more html rewrites
+- [ ] ws
+- [ ] json rewrites
+- [ ] rewrite url all in one object
+- [ ] headers export as object
+- [ ] hex encoding

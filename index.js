@@ -10,10 +10,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 var bundle = webpack({
   mode: 'development',
   entry: {
-    MAIN: path.join(__dirname, '/eclipse/main.js'),
-    SW: path.join(__dirname, '/eclipse/sw.js'),
-    WORKER: path.join(__dirname, '/eclipse/worker.js'),
-    CLIENT: path.join(__dirname, '/eclipse/client/')
+    MAIN: path.join(__dirname, '/src/main.js'),
+    SW: path.join(__dirname, '/src/sw.js'),
+    WORKER: path.join(__dirname, '/src/worker.js'),
+    CLIENT: path.join(__dirname, '/src/client/')
   },
   output: {
     path: path.join(__dirname, '/public/eclipse'),

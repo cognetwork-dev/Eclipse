@@ -1,5 +1,5 @@
 import { parse, serialize } from "parse5";
-import { url, javascript, css } from "./index.js"
+import rewrite from "./index.js"
 
 function html(code, requestURL, prefix, codec, randomString) {
   var HTML_REWRITER = [
@@ -69,7 +69,21 @@ for (var config in HTML_REWRITER) {
                 name: "eclipse-" + attr,
                 value: hasAttributes[item].attrs[attribute].value
               });
-              hasAttributes[item].attrs[attribute].value = url(requestURL, hasAttributes[item].attrs[attribute].value, prefix, codec, randomString)
+              hasAttributes[item].attrs[attribute].value = rewrite.url(requestURL, hasAttributes[item].attrs[attribute].value, prefix, codec, randomString)
+            }
+          }
+        }
+      })
+      HTML_REWRITER[config].attrs.forEach((attr) => {
+        var hasAttributes = elements.filter(elem => elem.attrs)
+        for (let item in hasAttributes) {
+          for (let attribute in hasAttributes[item].attrs) {
+            if (hasAttributes[item].attrs[attribute].name == attr) {
+              hasAttributes[item].attrs.push({
+                name: "eclipse-" + attr,
+                value: hasAttributes[item].attrs[attribute].value
+              });
+              hasAttributes[item].attrs[attribute].value = rewrite.url(requestURL, hasAttributes[item].attrs[attribute].value, prefix, codec, randomString)
             }
           }
         }
@@ -84,7 +98,7 @@ for (var config in HTML_REWRITER) {
                 name: "eclipse-" + attr,
                 value: hasAttributes[item].attrs[attribute].value
               });
-              hasAttributes[item].attrs[attribute].value = css(hasAttributes[item].attrs[attribute].value, requestURL, prefix, codec, randomString, "declarationList")
+              hasAttributes[item].attrs[attribute].value = rewrite.css(hasAttributes[item].attrs[attribute].value, requestURL, prefix, codec, randomString, "declarationList")
             }
           }
         }
@@ -99,7 +113,7 @@ for (var config in HTML_REWRITER) {
               name: "eclipse-" + attr,
               value: hasAttributes[item].attrs[attribute].value
             });
-            hasAttributes[item].attrs[attribute].value = javascript(hasAttributes[item].attrs[attribute].value)
+            hasAttributes[item].attrs[attribute].value = rewrite.javascript(hasAttributes[item].attrs[attribute].value)
           }
         }
       }
@@ -121,7 +135,7 @@ for (var config in HTML_REWRITER) {
     for (let item in hasTagNames) {
         if (hasTagNames[item].tagName.toLowerCase() == attr) {
           for (let childNode in hasTagNames[item].childNodes) {
-            hasTagNames[item].childNodes[childNode].value = css(hasTagNames[item].childNodes[childNode].value, requestURL, prefix, codec, randomString)
+            hasTagNames[item].childNodes[childNode].value = rewrite.css(hasTagNames[item].childNodes[childNode].value, requestURL, prefix, codec, randomString)
           }
         }
     }
@@ -132,11 +146,29 @@ for (var config in HTML_REWRITER) {
     for (let item in hasTagNames) {
         if (hasTagNames[item].tagName.toLowerCase() == attr) {
           for (let childNode in hasTagNames[item].childNodes) {
-            hasTagNames[item].childNodes[childNode].value = javascript(hasTagNames[item].childNodes[childNode].value)
+            hasTagNames[item].childNodes[childNode].value = rewrite.javascript(hasTagNames[item].childNodes[childNode].value)
           }
         }
     }
 })
+} else if (HTML_REWRITER[config].action == "srcset") {
+  HTML_REWRITER[config].attrs.forEach((attr) => {
+    var hasTagNames = elements.filter(elem => elem.tagName)
+    for (let item in hasTagNames) {
+        if (hasTagNames[item].tagName.toLowerCase() == attr) {
+          var srcset = hasAttributes[item].attrs[attr]
+          var srcset2 = srcset.split(" ")
+          var srcset3 = srcset2.filter(function(value, index) {
+            return index % 2 == 0
+          })
+
+          for (let item2 in srcset3) {
+            srcset = srcset.replace(srcset3[item2], rewrite.url(e, srcset3[item2]))
+          }
+          hasAttributes[item].attrs[attr] = srcset
+        }
+    }
+  })
 } else if (HTML_REWRITER[config].action == "inject") {
   var INJECT_CONFIG = JSON.stringify(HTML_REWRITER[config].config)
   var heads = elements.filter(elem => elem.tagName && elem.tagName == "head")

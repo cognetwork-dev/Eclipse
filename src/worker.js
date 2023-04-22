@@ -1,5 +1,5 @@
 import BareClient from '@tomphttp/bare-client';
-import { url, html, javascript, css, codecs, headersRequest, headersResponse } from "./rewrite/index.js";
+import rewrite from "./rewrite/index.js";
 
 async function EclipseWorker(e) {
   try {
@@ -12,10 +12,10 @@ async function EclipseWorker(e) {
   if (e.request.url.startsWith(self.location.origin + prefix)) {
   const client = new BareClient(config.bare);
 
-  var link = codecs[codec].decode(e.request.url.split(prefix)[1])
+  var link = rewrite.codecs[codec].decode(e.request.url.split(prefix)[1])
 
   var newHeaders = Object.assign({}, e.request.headers)
-  var rewrittenHeaders = headersRequest(newHeaders, link)
+  var rewrittenHeaders = rewrite.headers.request(newHeaders, link)
   var options = {
   method: e.request.method,
   headers: rewrittenHeaders,
@@ -27,7 +27,7 @@ async function EclipseWorker(e) {
   if (response.finalURL !== link) {
   return new Response("", {
 		status: 301,
-		headers: {"Location": url(e.request.url, response.finalURL, prefix, codec, randomString)}
+		headers: {"Location": rewrite.url(e.request.url, response.finalURL, prefix, codec, randomString)}
 	});
   }
 
@@ -35,22 +35,22 @@ async function EclipseWorker(e) {
 
   switch (e.request.method !== "POST" ? response.headers.get("content-type").split(";")[0] : "") {
     case "text/html":
-      code = html(await response.text(), e.request.url, prefix, codec, randomString);
+      code = rewrite.html(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     case "text/css":
-      code = css(await response.text(), e.request.url, prefix, codec, randomString);
+      code = rewrite.css(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     case "text/javascript":
-      code = javascript(await response.text(), e.request.url, prefix, codec, randomString);
+      code = rewrite.javascript(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     case "text/javascript":
-      code = javascript(await response.text(), e.request.url, prefix, codec, randomString);
+      code = rewrite.javascript(await response.text(), e.request.url, prefix, codec, randomString);
       break;   
     case "text/js":
-      code = javascript(await response.text(), e.request.url, prefix, codec, randomString);
+      code = rewrite.javascript(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     case "application/javascript":
-      code = javascript(await response.text(), e.request.url, prefix, codec, randomString);
+      code = rewrite.javascript(await response.text(), e.request.url, prefix, codec, randomString);
       break;
     default:
       code = await response.arrayBuffer();
@@ -59,7 +59,7 @@ async function EclipseWorker(e) {
   
   return new Response(code, {
 		status: response.status,
-		headers: headersResponse(response.rawHeaders)
+		headers: rewrite.headers.response(response.rawHeaders)
 	});
   } else {
   return fetch(e.request);

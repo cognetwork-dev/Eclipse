@@ -1,4 +1,4 @@
-import { codecs } from "./rewrite/index.js";
+import rewrite from "./rewrite/index.js";
 import { v4 as uuidv4 } from 'uuid';
 
 class Eclipse {
@@ -26,7 +26,7 @@ class Eclipse {
       }
     }
 
-    if (!codecs[this.codec]) {
+    if (!rewrite.codecs[this.codec]) {
       console.error("Invalid codec")
       console.error("Codec has been set to plain")
 
@@ -52,7 +52,7 @@ class Eclipse {
   }
   url = function(url) {
     if (url) {
-      return window.location.origin + "/eclipse" + this.prefix + codecs[this.codec].encode(url);
+      return window.location.origin + "/eclipse" + this.prefix + rewrite.codecs[this.codec].encode(url);
       } else {
       return "";
     }

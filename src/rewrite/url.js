@@ -1,9 +1,8 @@
-import { codecs } from "./index.js"
-
+import rewrite from "./index.js"
 
 function url(requestURL, url, prefix, codec, randomString, baseURL) {
     var fullUrl = requestURL.split(prefix)[1];
-    fullUrl = codecs[codec].decode(fullUrl, randomString)
+    fullUrl = rewrite.codecs[codec].decode(fullUrl, randomString)
     var mainUrl = new URL(requestURL).origin + prefix;
     
     if (url.startsWith("javascript:") || url.startsWith("about:") || url.startsWith("mailto:")|| url.startsWith("data:") || url.startsWith("blob:") || url.startsWith("#")) return url;
@@ -17,7 +16,7 @@ function url(requestURL, url, prefix, codec, randomString, baseURL) {
     
     var newurl = new URL(url, webbaseurl).toString()
     
-    return mainUrl + codecs[codec].encode(newurl)
+    return mainUrl + rewrite.codecs[codec].encode(newurl)
 }
     
 export { url as default };

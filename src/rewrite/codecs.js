@@ -166,4 +166,4 @@ codecs.random = {
     }
 }
 
-export { codecs }
+export default codecs;
