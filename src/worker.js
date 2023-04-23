@@ -12,14 +12,19 @@ async function EclipseWorker(e) {
   if (e.request.url.startsWith(self.location.origin + prefix)) {
   const client = new BareClient(config.bare);
 
-  var link = rewrite.codecs[codec].decode(e.request.url.split(prefix)[1])
+  if (e.request.url.split(prefix)[1]) {
+    var link = rewrite.codecs[codec].decode(e.request.url.split(prefix)[1])
+  } else {
+    console.log("URL does not contain prefix")
+    var link = rewrite.codecs[codec].decode(e.request.url)
+  }
 
   var newHeaders = Object.assign({}, e.request.headers)
   var rewrittenHeaders = rewrite.headers.request(newHeaders, link)
   var options = {
-  method: e.request.method,
-  headers: rewrittenHeaders,
-  body: undefined
+    method: e.request.method,
+    headers: rewrittenHeaders,
+    body: undefined
   }
 
   const response = await client.fetch(link, options);
@@ -33,7 +38,8 @@ async function EclipseWorker(e) {
 
   var code;
 
-  switch (e.request.method !== "POST" ? response.headers.get("content-type").split(";")[0] : "") {
+  var contentType = response.headers.get("content-type") ? response.headers.get("content-type").split(";")[0] : ""
+  switch (e.request.method !== "POST" ? contentType : "") {
     case "text/html":
       code = rewrite.html(await response.text(), e.request.url, prefix, codec, randomString);
       break;

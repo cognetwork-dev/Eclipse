@@ -1,5 +1,5 @@
 import { parseScript } from "meriyah";
-import { generate } from "esotope-hammerhead";
+import { generate } from "astring";
 import rewrite from "./index.js"
 
 function javascript(code) {
@@ -35,7 +35,7 @@ function javascript(code) {
         
         if (node.type == "Identifier" && windows.includes(node.name) &&  parentNode && parentNode.type !== "FunctionDeclaration" && parentNode.type !== "CallExpression") {
             let oldParent = structuredClone ? structuredClone(parentNode) : JSON.parse(JSON.stringify(parentNode))
-            node.name = "getWindow(" + node.name + ")"
+            node.name = "$ec.window(" + node.name + ")"
 
             if (parentNode && parentNode.type == "VariableDeclarator") {
                 parentNode.id.name = oldParent.id.name
@@ -48,7 +48,7 @@ function javascript(code) {
 
         if (node.type == "Identifier" && node.name == "location" && parentNode.type !== "FunctionDeclaration" && parentNode.type !== "CallExpression") {
             let oldParent = structuredClone ? structuredClone(parentNode) : JSON.parse(JSON.stringify(parentNode))
-            node.name = "getWindow()." + node.name
+            node.name = "$ec.window(this)." + node.name
 
             if (parentNode && parentNode.type == "VariableDeclarator") {
                 parentNode.id.name = oldParent.id.name
@@ -79,10 +79,8 @@ function javascript(code) {
     return nodes;
     }
 
-    var result = generate(AST, {
-        compact: true,
-        escapeless: true
-    })
+    //They are working on a compact option...
+    var result = generate(AST)
 
     return result;
 }

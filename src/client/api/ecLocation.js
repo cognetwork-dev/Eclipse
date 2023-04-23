@@ -1,4 +1,4 @@
-function getLocation(frame = this) {
+function ecLocation(frame = window) {
     if (!frame.location) {
         return frame;
     }
@@ -109,83 +109,4 @@ function getLocation(frame = this) {
     return new Location()
 }
 
-    function isWindow(win) {
-        try {
-            if (!win["Window"]) {
-                return false;
-            }
-            if (win instanceof win["Window"]) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch {
-            return false;
-        }
-    }
-
-function getWindow(frame = this) {
-    if (!frame.location) {
-            return frame;
-    }
-
-    var windowProxy = {
-                get(target, prop, receiver) {
-                    if (prop == "location") {
-                        return getLocation(target)
-                    }
-
-                    if (target[prop] && typeof target[prop] == "object") {
-                        return new Proxy(target[prop], windowProxy)
-                    } else {
-                    var value = Reflect.get(target, prop);
-
-                    if (typeof value == "function") {
-                        if (prop == "valueOf") {
-                            return value.bind(getWindow(target))
-                        }
-
-                        return value.bind(target);
-                    } else {
-                        return value;
-                    }
-                    }
-                },
-                set(obj, prop, value) {
-                    return Reflect.set(obj, prop, value);
-                }
-            }
-
-            return new Proxy(frame, windowProxy)
-}
-
-var oldSelf = self
-self = getWindow(oldSelf)
-
-var oldGlobalThis = globalThis
-globalThis = getWindow(oldGlobalThis)
-
-var oldParent = parent
-parent = getWindow(parent)
-
-var oldFrames = frames
-frames = getWindow(frames)
-
-
-//IFRAME
-var oldContentWindow = Object.getOwnPropertyDescriptor(HTMLIFrameElement.prototype, "contentWindow").get
-var oldContentDocument = Object.getOwnPropertyDescriptor(HTMLIFrameElement.prototype, "contentDocument").get
-
-Object.defineProperty(HTMLIFrameElement.prototype, "contentWindow", {
-    get: function() {
-        var contentWindow = getWindow(oldContentWindow.call(this))
-        return contentWindow;
-    }
-})
-
-Object.defineProperty(HTMLIFrameElement.prototype, "contentDocument", {
-    get: function() {
-        var contentDocument = getWindow(oldContentDocument.call(this))
-        return contentDocument;
-    }
-})
+export default ecLocation;
