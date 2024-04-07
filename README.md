@@ -1,7 +1,7 @@
 <div align="center">
 
 <kbd>
-<img style="border-radius:50%" height="150px" src="https://raw.githubusercontent.com/cognetwork-dev/Tsunami/main/public/logo/svg">
+<img style="border-radius:50%" height="150px" src="https://raw.githubusercontent.com/cognetwork-dev/Eclipse/main/public/logo.svg">
 </kbd>
 
 <h1>Eclipse</h1>
