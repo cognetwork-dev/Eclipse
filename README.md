@@ -1,12 +1,12 @@
 <div align="center">
 
 <kbd>
-<img style="border-radius:50%" height="150px" src="/public/logo/svg">
+<img style="border-radius:50%" height="150px" src="https://raw.githubusercontent.com/cognetwork-dev/Tsunami/main/public/logo/svg">
 </kbd>
 
 <h1>Eclipse</h1>
 
-<h3>An interception web proxy</h3>
+<h3>[Unfinished] An interception web proxy</h3>
 
 <p>Eclipse is a new interception web proxy that follows TOMP standards</p>
 
